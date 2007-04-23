@@ -1,0 +1,4 @@
+# Customized settings for atheme
+
+# Define nice level for atheme
+#SERVICE_RUN_NICE_LEVEL="+0"
