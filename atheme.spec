@@ -12,7 +12,7 @@ Source2:	%{name}.sysconfig
 URL:		http://www.atheme.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	rpmbuild(macros) >= 1.202
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	zlib-devel
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
@@ -76,8 +76,10 @@ rm -rf $RPM_BUILD_ROOT
 %service %{name} restart "Atheme IRC Services"
 
 %preun
-%service %{name} stop "Atheme IRC Services"
-/sbin/chkconfig --del atheme
+if [ "$1" = 0 ]; then
+	%service %{name} stop
+	/sbin/chkconfig --del atheme
+fi
 
 %postun
 if [ "$1" = "0" ]; then
