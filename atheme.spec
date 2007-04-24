@@ -73,19 +73,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add atheme
-if [ -f /var/lock/subsys/atheme ]; then
-	/etc/rc.d/init.d/atheme restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/atheme start\" to start IRC daemon."
-fi
+%service %{name} restart "Atheme IRC Services"
 
 %preun
-if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/atheme ]; then
-		/etc/rc.d/init.d/atheme stop 1>&2
-	fi
-	/sbin/chkconfig --del atheme
-fi
+%service %{name} stop "Atheme IRC Services"
+/sbin/chkconfig --del atheme
 
 %postun
 if [ "$1" = "0" ]; then
