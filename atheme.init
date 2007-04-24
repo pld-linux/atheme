@@ -26,7 +26,7 @@ else
 fi
 
 start() {
-	daemon --user atheme atheme  --logfile /var/log/atheme/atheme.log
+	daemon --user atheme atheme
 	RETVAL=$?
 	if [ $RETVAL -eq 0 ]; then
 		touch /var/lock/subsys/atheme
